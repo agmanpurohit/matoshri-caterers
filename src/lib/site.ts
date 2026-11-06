@@ -41,6 +41,14 @@ export const site = {
   social: {} as Partial<Record<"instagram" | "facebook" | "youtube", string>>,
 } as const;
 
+/**
+ * Search-engine indexing switch.
+ * false = every page and file is sent with "noindex, nofollow" (robots meta tag
+ * + X-Robots-Tag header), so search engines won't list the site or follow links.
+ * Set to true when the site should appear in Google, then redeploy.
+ */
+export const allowIndexing = false;
+
 export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.matoshricaterers.com").replace(/\/$/, "");
 
 export const yearsOfService = () => new Date().getFullYear() - site.established;

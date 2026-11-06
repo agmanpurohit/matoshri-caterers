@@ -6,7 +6,7 @@ import { getDictionary } from "@/content";
 import { cormorant, manrope, mukta, tiro } from "@/lib/fonts";
 import { htmlLang, isLocale, locales } from "@/lib/i18n";
 import { businessSchema, websiteSchema } from "@/lib/schema";
-import { site, siteUrl } from "@/lib/site";
+import { allowIndexing, site, siteUrl } from "@/lib/site";
 import { whatsappUrl } from "@/lib/whatsapp";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -28,7 +28,9 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
     applicationName: site.name[locale],
     authors: [{ name: site.name.en }],
     formatDetection: { telephone: true, email: false, address: false },
-    robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
+    robots: allowIndexing
+      ? { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } }
+      : { index: false, follow: false, googleBot: { index: false, follow: false } },
   };
 }
 
